@@ -501,11 +501,13 @@ string SystemSavePath()
 			slocal = string(".") + string("/config");
 		}
 	}
-#elif defined(__APPLE__)
-	slocal = string("~/Documents");
-#endif
 
 	ssave = slocal + "/Pyrodactyl/Good Robot";
+#elif defined(__APPLE__)
+	slocal = SDL_GetPrefPath(NULL, "Good-Robot");
+	ssave = slocal;
+#endif
+
 
 	plocal = path(slocal);
 	psave = path(ssave);

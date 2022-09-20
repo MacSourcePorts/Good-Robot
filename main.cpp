@@ -91,7 +91,9 @@ static void init()
 	PlayerInit();
 	ParticleInit();
 	HudInit();
+#ifndef SKIP_STEAM
 	SteamAPI_Init();
+#endif
 	SteamUserInit();
 }
 
@@ -122,7 +124,9 @@ static void run()
 		FontUpdate();
 		ConsoleUpdate();
 		Render();
+#ifndef SKIP_STEAM
 		SteamAPI_RunCallbacks();
+#endif
 		leftover = next_frame - SystemTick();
 		if (leftover > 0)
 			time_counter += leftover;
@@ -176,6 +180,8 @@ int main(int argc, char** argv)
 	init();
 	run();
 	term();
+#ifndef SKIP_STEAM
 	SteamAPI_Shutdown();
+#endif
 	return 0;
 }

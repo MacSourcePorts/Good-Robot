@@ -243,4 +243,8 @@ struct Line2D
 	GLvector2     end;
 };
 
+#if defined(__APPLE__)
+#define SKIP_STEAM
+#endif
+
 #endif /* _master_h_ */

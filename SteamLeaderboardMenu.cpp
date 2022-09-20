@@ -26,6 +26,7 @@ void SteamLeaderboardMenu::DownloadScores()
 
 void SteamLeaderboardMenu::Rebuild()
 {
+#ifndef SKIP_STEAM
 	SteamLeaderboard_t m_hSteamLeaderboard = 0;
 	if (state == STATE_SCORE)
 		m_hSteamLeaderboard = leaderboard.handle_score;
@@ -85,6 +86,7 @@ void SteamLeaderboardMenu::Rebuild()
 			}
 		}
 	}
+#endif
 }
 
 //-----------------------------------------------------------------------------

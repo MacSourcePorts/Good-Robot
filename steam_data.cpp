@@ -19,7 +19,9 @@ int news_count, tutorial_count;
 void SteamUserInit()
 {
 	m_pSteamUserStats = nullptr;
+#ifndef SKIP_STEAM
 	m_pSteamUserStats = SteamUserStats();
+#endif
 
 	if (m_pSteamUserStats != nullptr)
 	{
@@ -104,8 +106,10 @@ bool SteamCheckAch(const T val, const char* ach_id, const U quantity)
 
 const char* SteamDisplayName()
 {
+#ifndef SKIP_STEAM
 	if (SteamFriends() != nullptr)
 		return SteamFriends()->GetPersonaName();
+#endif	
 
 	return "Player";
 }

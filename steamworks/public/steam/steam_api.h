@@ -250,14 +250,18 @@ public:
 	void Set( SteamAPICall_t hAPICall, T *p, func_t func )
 	{
 		if ( m_hAPICall )
+#ifndef SKIP_STEAM
 			SteamAPI_UnregisterCallResult( this, m_hAPICall );
+#endif
 
 		m_hAPICall = hAPICall;
 		m_pObj = p;
 		m_Func = func;
 
+#ifndef SKIP_STEAM
 		if ( hAPICall )
 			SteamAPI_RegisterCallResult( this, hAPICall );
+#endif
 	}
 
 	bool IsActive() const
@@ -269,7 +273,9 @@ public:
 	{
 		if ( m_hAPICall != k_uAPICallInvalid )
 		{
+#ifndef SKIP_STEAM
 			SteamAPI_UnregisterCallResult( this, m_hAPICall );
+#endif
 			m_hAPICall = k_uAPICallInvalid;
 		}
 		

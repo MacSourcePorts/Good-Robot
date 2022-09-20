@@ -19,6 +19,7 @@ SteamLeaderboard::SteamLeaderboard()
 //-----------------------------------------------------------------------------
 void SteamLeaderboard::FindLeaderboards()
 {
+#ifndef SKIP_STEAM
 	//We're already downloading leaderboards, wait
 	if (loading)
 		return;
@@ -45,6 +46,7 @@ void SteamLeaderboard::FindLeaderboards()
 			loading = true;
 		}
 	}
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -52,6 +54,7 @@ void SteamLeaderboard::FindLeaderboards()
 //-----------------------------------------------------------------------------
 void SteamLeaderboard::OnFindLeaderboard(LeaderboardFindResult_t *pFindLeaderboardResult, bool bIOFailure)
 {
+#ifndef SKIP_STEAM
 	loading = false;
 
 	// see if we encountered an error during the call
@@ -70,6 +73,7 @@ void SteamLeaderboard::OnFindLeaderboard(LeaderboardFindResult_t *pFindLeaderboa
 
 	//if the user is currently looking at a leaderboard, it might be one we didn't have a handle for yet. Update the leaderboard.
 	//TODO: update display here
+#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -90,6 +94,7 @@ void SteamLeaderboard::OnUploadScore(LeaderboardScoreUploaded_t *pScoreUploadedR
 
 void SteamLeaderboard::AddScore(int score, int kills)
 {
+#ifndef SKIP_STEAM
 	// if the user is valid, update the leaderboards with their score and kills
 	if (SteamUserValid())
 	{
@@ -107,4 +112,5 @@ void SteamLeaderboard::AddScore(int score, int kills)
 			m_SteamCallResultUploadScore.Set(hSteamAPICall, this, &SteamLeaderboard::OnUploadScore);
 		}
 	}
+#endif
 }
