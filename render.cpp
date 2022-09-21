@@ -117,6 +117,17 @@ void compile(char* filename, GLenum id)
 	string      text;
 
 	text = FileContents(ResourceLocation(filename, RESOURCE_SHADER));
+
+#if defined(__APPLE__)
+	// This shader needs a tweak to work on macOS' old OpenGL
+	// My build system puts the updated version in the App Bundle Resources directory
+	// but for reference, its the filename "fragment_macos.cg" in the source folder -tkidd
+	if (strcmp(filename, "fragment.cg") == 0) {
+		string fragment_cg = "fragment.cg";
+		text = FileContents(SDL_GetBasePath() + fragment_cg);
+	}
+#endif
+
 	if (text.empty()) {
 		Console("Can't open '%s'...", filename);
 		return;
