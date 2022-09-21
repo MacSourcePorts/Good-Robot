@@ -4,12 +4,13 @@
 #include "system.h"
 #include "steam_data.h"
 #include "menu.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
 void OptionMenu::Init()
 {
-	XMLDoc layout_doc("core/data/ui_settings.xml");
+	XMLDoc layout_doc(ResourceLocation("ui_settings.xml", RESOURCE_DATA));
 	if (layout_doc.ready())
 	{
 		rapidxml::xml_node<char> *node = layout_doc.Doc()->first_node("settings");

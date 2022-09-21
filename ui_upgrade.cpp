@@ -1,12 +1,13 @@
 #include "master.h"
 #include "ui_upgrade.h"
 #include "world.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
 void UpgradeMenu::Init()
 {
-	XMLDoc layout_doc("core/data/ui_upgrade.xml");
+	XMLDoc layout_doc(ResourceLocation("ui_upgrade.xml", RESOURCE_DATA));
 	if (layout_doc.ready())
 	{
 		rapidxml::xml_node<char> *node = layout_doc.Doc()->first_node("upgrade");

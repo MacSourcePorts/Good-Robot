@@ -2,6 +2,7 @@
 #include "ui_hatshop.h"
 #include "world.h"
 #include "random.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
@@ -20,7 +21,7 @@ bidiiter random_unique(bidiiter begin, bidiiter end, size_t num_random) {
 
 void HatShopMenu::Init()
 {
-	XMLDoc layout_doc("core/data/ui_hat.xml");
+	XMLDoc layout_doc(ResourceLocation("ui_hat.xml", RESOURCE_DATA));
 	if (layout_doc.ready())
 	{
 		rapidxml::xml_node<char> *node = layout_doc.Doc()->first_node("store");

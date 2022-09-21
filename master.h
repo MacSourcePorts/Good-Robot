@@ -114,7 +114,7 @@ typedef uchar   btype;
 typedef int     RobotType;
 
 #define LEVELS_XML            "levels.xml"
-#define LEVELS_DIR            "core/maps/"
+// #define LEVELS_DIR            "core/maps/"
 #define LEVELS_EXT            ".tmx"
 #define LEVELS_DEFAULT        "empty"
 #define GAMEPLAY_FILE         "gameplay.ini"

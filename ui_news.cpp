@@ -1,5 +1,6 @@
 #include "master.h"
 #include "ui_news.h"
+#include "resource.h"
 
 //The news text is stored here
 namespace pyrodactyl
@@ -17,7 +18,7 @@ using namespace pyrodactyl;
 void NewsData::Load()
 {
 	//Store all news lines
-	XMLDoc news_doc("core/data/news.xml");
+	XMLDoc news_doc(ResourceLocation("news.xml", RESOURCE_DATA));
 	if (news_doc.ready())
 	{
 		rapidxml::xml_node<char> *node = news_doc.Doc()->first_node("news");

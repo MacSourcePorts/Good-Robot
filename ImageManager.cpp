@@ -4,6 +4,7 @@
 //=============================================================================
 #include "master.h"
 #include "ImageManager.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
@@ -42,7 +43,7 @@ void ImageManager::LoadMap(const std::string &filename)
 bool ImageManager::Init()
 {
 	//Load common assets
-	LoadMap("core/data/common.xml");
+	LoadMap(ResourceLocation("common.xml", RESOURCE_DATA));
 	invalid_img = map[0];
 
 	return true;

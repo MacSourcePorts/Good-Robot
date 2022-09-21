@@ -17,6 +17,8 @@
 
 #include "bodyparts.h"
 #include "font.h"
+#include "resource.h"
+
 
 static FT_Library     library;
 static vector<Font*>  font_list;
@@ -407,9 +409,13 @@ Font* FontCreate(char* filename, int rows_per_screen)
 {
 	Font*   f;
 
+	std::string path = filename;
+	std::size_t botDirPos = path.find_last_of("/");
+	std::string file = path.substr(botDirPos + 1, path.length());
+
 	f = new Font;
 	font_list.push_back(f);
-	f->Init(filename, rows_per_screen);
+	f->Init(ResourceLocation(file, RESOURCE_FONTS).c_str(), rows_per_screen);
 	font_init(f);
 	f->Generate();
 	return f;

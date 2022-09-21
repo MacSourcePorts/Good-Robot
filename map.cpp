@@ -26,6 +26,7 @@
 #include "page.h"
 #include "world.h"
 #include "player.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
@@ -51,7 +52,7 @@ static vector<std::string> get_patterns(string data)
 	list = StringSplit(data, " ,");
 	for (unsigned i = 0; i < list.size(); i++)
 	{
-		boost::filesystem::path file_path(LEVELS_DIR + list[i] + LEVELS_EXT);
+		boost::filesystem::path file_path(ResourceLocation(list[i] + LEVELS_EXT, RESOURCE_MAPS));
 		if (exists(file_path))
 			result.push_back(list[i]);
 		else

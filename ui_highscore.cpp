@@ -1,6 +1,7 @@
 #include "master.h"
 #include "ui_highscore.h"
 #include "steam_data.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
@@ -18,7 +19,7 @@ void HighScoreMenu::AddScore(const HighScoreData &h)
 //-----------------------------------------------------------------------------
 void HighScoreMenu::Init()
 {
-	XMLDoc layout_doc("core/data/ui_score.xml");
+	XMLDoc layout_doc(ResourceLocation("ui_score.xml", RESOURCE_DATA));
 	if (layout_doc.ready())
 	{
 		rapidxml::xml_node<char> *node = layout_doc.Doc()->first_node("score");

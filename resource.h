@@ -8,6 +8,8 @@ enum ResourceType
 	RESOURCE_SHADER,
 	RESOURCE_TEXTURE,
 	RESOURCE_MUSIC,
+	RESOURCE_FONTS,
+	RESOURCE_MAPS
 };
 
 string ResourceLocation(string filename, ResourceType type);

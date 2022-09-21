@@ -355,3 +355,4 @@ MigrationBackup/
 build-x86_64/
 build-arm64/
 release/
+.vscode/settings.json

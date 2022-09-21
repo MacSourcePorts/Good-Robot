@@ -257,7 +257,7 @@ void AudioFileListInit()
 	file_list.clear();
 
 	using namespace pyrodactyl;
-	XMLDoc sound_list("core/sounds/sounds.xml");
+	XMLDoc sound_list(ResourceLocation("sounds.xml", RESOURCE_SOUND));
 	if (sound_list.ready())
 	{
 		rapidxml::xml_node<char> *node = sound_list.Doc()->first_node("sounds");

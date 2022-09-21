@@ -17,6 +17,7 @@
 #include "particle.h"
 #include "system.h"
 #include "world.h"
+#include "resource.h"
 
 #define CURSOR_SIZE           0.15f
 
@@ -156,7 +157,7 @@ void  HudToggleVisible()
 void HudInit()
 {
 	gl_list_hud = glGenLists(1);
-	hud_objects.Load("core/data/ui_hud.xml");
+	hud_objects.Load(ResourceLocation("ui_hud.xml", RESOURCE_DATA));
 	HudVisible(true);
 }
 

@@ -1,5 +1,6 @@
 #include "master.h"
 #include "ui_credits.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
@@ -48,7 +49,7 @@ void OpenURL(const std::string &url_str)
 
 void CreditScreen::Init()
 {
-	XMLDoc conf("core/data/ui_credits.xml");
+	XMLDoc conf(ResourceLocation("ui_credits.xml", RESOURCE_DATA));
 	if (conf.ready())
 	{
 		rapidxml::xml_node<char> *node = conf.Doc()->first_node("credits");

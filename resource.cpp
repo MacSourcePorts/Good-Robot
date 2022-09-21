@@ -50,6 +50,10 @@ string ResourceLocation(string filename, ResourceType type)
 		subdir = "shaders/"; break;
 	case RESOURCE_MUSIC:
 		subdir = "music/"; break;
+	case RESOURCE_FONTS:
+		subdir = "fonts/"; break;
+	case RESOURCE_MAPS:
+		subdir = "maps/"; break;
 	}
 
 #ifdef WINDEBUG
@@ -90,6 +94,10 @@ string ResourceLocation(string filename, ResourceType type)
 	}
 #endif
 	//TODO: We'll add a mod directory override here. Someday. Maybe.
+#if defined(__APPLE__)
+	result = SDL_GetPrefPath(NULL, "Good-Robot") + string("core/") + subdir + filename;
+#else
 	result = string("core/") + subdir + filename;
+#endif
 	return result;
 }

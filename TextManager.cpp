@@ -1,6 +1,7 @@
 #include "master.h"
 #include "XMLDoc.h"
 #include "TextManager.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
@@ -14,7 +15,7 @@ namespace pyrodactyl
 //------------------------------------------------------------------------
 void TextManager::Init()
 {
-	colpool.Load("core/data/colors.xml");
+	colpool.Load(ResourceLocation("colors.xml", RESOURCE_DATA));
 }
 
 //------------------------------------------------------------------------

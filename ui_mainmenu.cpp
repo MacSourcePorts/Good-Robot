@@ -3,12 +3,13 @@
 #include "file.h"
 #include "game.h"
 #include "env.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
 void MainMenu::Init()
 {
-	XMLDoc layout_doc("core/data/ui_layout.xml");
+	XMLDoc layout_doc(ResourceLocation("ui_layout.xml", RESOURCE_DATA));
 	if (layout_doc.ready())
 	{
 		rapidxml::xml_node<char> *node = layout_doc.Doc()->first_node("ui");

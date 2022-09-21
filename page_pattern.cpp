@@ -18,6 +18,7 @@
 #include "page.h"
 #include "random.h"
 #include "TMXMap.h"
+#include "resource.h"
 
 /*-----------------------------------------------------------------------------
 
@@ -96,13 +97,13 @@ void Page::BuildPattern()
 			platform_width -= 1 + RandomVal (2);
 		}
 	} else {//Not a door, load a TMX file.
-		boost::filesystem::path file_path(LEVELS_DIR + _pattern + LEVELS_EXT);
+		boost::filesystem::path file_path(ResourceLocation(_pattern + LEVELS_EXT, RESOURCE_MAPS));
 		if (exists(file_path)) {
 			//Load the TMX file specified
-			tmx.Load(LEVELS_DIR, _pattern + LEVELS_EXT);
+			tmx.Load(ResourceLocation("", RESOURCE_MAPS), _pattern + LEVELS_EXT);
 		} else {
 			//Load the default file
-			tmx.Load(LEVELS_DIR, LEVELS_DEFAULT);
+			tmx.Load(ResourceLocation("", RESOURCE_MAPS), LEVELS_DEFAULT);
 		}
 		tmx.Copy(_map);
 		//Bore tunnels to connect this level with the one above or below it.

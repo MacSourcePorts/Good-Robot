@@ -4,6 +4,7 @@
 #include "world.h"
 #include "fx.h"
 #include "entity.h"
+#include "resource.h"
 
 using namespace pyrodactyl;
 
@@ -20,7 +21,7 @@ StoreMenu::StoreMenu()
 
 void StoreMenu::Init()
 {
-	XMLDoc layout_doc("core/data/ui_store.xml");
+	XMLDoc layout_doc(ResourceLocation("ui_store.xml", RESOURCE_DATA));
 	if (layout_doc.ready())
 	{
 		rapidxml::xml_node<char> *node = layout_doc.Doc()->first_node("store");

@@ -18,6 +18,7 @@
 
 #include "loaders.h"
 #include "XMLDoc.h"
+#include "resource.h"
 
 static vector<string>   print;
 static vector<Font*>    font;
@@ -73,7 +74,7 @@ void InterfaceInit()
 {
 	using namespace pyrodactyl;
 
-	XMLDoc font_list("core/fonts/fonts.xml");
+	XMLDoc font_list(ResourceLocation("fonts.xml", RESOURCE_FONTS));
 	if (font_list.ready()) {
 		rapidxml::xml_node<char> *node = font_list.Doc()->first_node("fonts");
 

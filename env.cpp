@@ -40,8 +40,8 @@ using namespace pyrodactyl;
 #define CHARACTERS_FILE         "characters.ini"
 #define PROJECTILES_FILE        "projectiles.ini"
 #define MACHINES_XML            "machines.xml"
-#define PROPERTY_FILE_NORMAL    "core/data/gameplay.xml"
-#define PROPERTY_FILE_EASY      "core/data/gameplay_easy.xml"
+#define PROPERTY_FILE_NORMAL    "gameplay.xml"
+#define PROPERTY_FILE_EASY      "gameplay_easy.xml"
 
 enum EnvType
 {
@@ -563,9 +563,9 @@ void EnvLoadDifficulty()
 {
 	XMLDoc prop_file;
 	if (Player()->DifficultyGet())
-		prop_file.Load(PROPERTY_FILE_NORMAL);
+		prop_file.Load(ResourceLocation(PROPERTY_FILE_NORMAL, RESOURCE_DATA));
 	else
-		prop_file.Load(PROPERTY_FILE_EASY);
+		prop_file.Load(ResourceLocation(PROPERTY_FILE_EASY, RESOURCE_DATA));
 
 	if (prop_file.ready()) {
 		rapidxml::xml_node<char> *node = prop_file.Doc()->first_node("property");

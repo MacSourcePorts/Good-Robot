@@ -19,6 +19,7 @@
 #include "render.h"
 #include "system.h"
 #include "hud.h"
+#include "resource.h"
 
 //For the "add to high score list"
 #include "player.h"
@@ -74,8 +75,8 @@ void MenuInit()
 		gInput.Init();
 		menu_main.Init();
 		menu_upgrade.Init();
-		menu_gameover.Init("core/data/ui_gameover.xml");
-		menu_win.Init("core/data/ui_win.xml");
+		menu_gameover.Init(ResourceLocation("ui_gameover.xml", RESOURCE_DATA).c_str());
+		menu_win.Init(ResourceLocation("ui_win.xml", RESOURCE_DATA).c_str());
 		menu_store.Init();
 		menu_hat.Init();
 	}

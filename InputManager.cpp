@@ -4,6 +4,7 @@
 #include "texture.h"
 #include "render.h"
 #include "element.h"
+#include "resource.h"
 
 namespace pyrodactyl
 {
@@ -58,7 +59,7 @@ bool InputManager::RightAxisFire()
 //------------------------------------------------------------------------
 void InputManager::Init()
 {
-	const std::string DEFAULT_FILENAME = "core/data/controls.xml";
+	const std::string DEFAULT_FILENAME = ResourceLocation("controls.xml", RESOURCE_DATA);
 
 	std::string filename = SystemSavePath();
 	filename += "controls.xml";
@@ -83,7 +84,7 @@ void InputManager::Init()
 		}
 	}
 
-	XMLDoc image_list("core/data/hotkey_img.xml");
+	XMLDoc image_list(ResourceLocation("hotkey_img.xml", RESOURCE_DATA));
 	if (image_list.ready())
 	{
 		rapidxml::xml_node<char> *node = image_list.Doc()->first_node("res");
