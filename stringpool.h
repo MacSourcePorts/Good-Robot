@@ -3,6 +3,7 @@
 #include "common_header.h"
 #include "XMLDoc.h"
 #include "loaders.h"
+#include <list>
 
 namespace pyrodactyl
 {
