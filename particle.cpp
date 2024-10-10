@@ -64,7 +64,7 @@ public:
 	void        Render();
 };
 
-static vector<Particle>     queue;
+static vector<Particle>     grQueue;
 static vector<Particle>     particle;
 static GLuvFrame*           smoke;
 static GLuvFrame*           spark;
@@ -81,7 +81,7 @@ static int									update_particle;
 
 static bool overloaded ()
 {
-	if (particle.size () + queue.size () > PARTICLE_LIMIT)
+	if (particle.size () + grQueue.size () > PARTICLE_LIMIT)
 		return true;
 	return false;
 }
@@ -111,7 +111,7 @@ void ParticleBloom(GLvector2 origin, GLrgba color, float size, int lifespan)
 	p.Init (SpriteEntryLookup ("Circle"), color, origin, false, true, lifespan, size, size / 100.0f, 50.0f);
 	p.ScaleSet (0, size);
 	p.FadeSet(true);
-	queue.push_back(p);
+	grQueue.push_back(p);
 }
 
 void ParticleSmoke(GLvector2 origin, float size, int count)
@@ -125,7 +125,7 @@ void ParticleSmoke(GLvector2 origin, float size, int count)
 		p.Init(SPRITE_SMOKE, GLrgba(), origin, false, false, 1500 + RandomVal() % 1000, size, 0.01f, 1);
 		p.Accelerate(GLvector2(0, -0.01f));
 		p.FadeSet(true);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -145,7 +145,7 @@ void ParticleExplode(GLvector2 origin, GLrgba color, int count, float size)
 		p.Init(sprite, color, origin, true, false, 1200, size, 0.06f, 23);
 		p.FadeSet(true);
 		p.TrailSet(true);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -160,7 +160,7 @@ void ParticleSprite(GLvector2 origin, GLvector2 movement, GLrgba color, SpriteEn
 		p.Init(sprite, color, origin, false, glow, 1200, size, 0, 0);
 		p.Accelerate(movement);
 		p.FadeSet(true);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -175,12 +175,12 @@ void ParticleGlow(GLvector2 origin, GLvector2 movement, GLrgba color1, GLrgba co
 		p.Init(SPRITE_GLOW, color1, origin, false, true, 250 + RandomVal() % 1500, size, 0.01f, 3);
 		p.Accelerate(movement);
 		p.FadeSet(true);
-		queue.push_back(p);
+		grQueue.push_back(p);
 		seed--;
 		p.Init(SPRITE_SPARK, color2, origin, false, true, 250 + RandomVal() % 1500, size, 0.01f, 14);
 		p.Accelerate(movement);
 		p.FadeSet(true);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -195,7 +195,7 @@ void ParticleSparks(GLvector2 origin, GLvector2 movement, GLrgba color, int coun
 		p.Init(SPRITE_SPARK, color, origin, false, true, 250 + RandomVal() % 1500, 0.07f+RandomFloat()*0.15f, 0.05f, 10);
 		p.Accelerate(movement);
 		p.FadeSet(true);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -208,7 +208,7 @@ void ParticleSparks(GLvector2 origin, GLrgba color, int count)
 	count *= PARTICLE_COUNT_BOOST;
 	for (int i = 0; i < count; i++) {
 		p.Init(SPRITE_SPARK, color, origin, false, true, 1000 + RandomVal() % 1000, 0.16f, 0.01f, 10);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -227,7 +227,7 @@ void ParticleDebris(GLvector2 origin, float size, int count, float speed)
 			sprite = SPRITE_DEBRIS2;
     p.Init (sprite, GLrgba (), origin, true, false, DEBRIS_LIFESPAN + RandomVal () % DEBRIS_LIFESPAN, size, 0.05f*speed, 3);
     p.CollisionSet (true);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -247,7 +247,7 @@ void ParticleDebris (GLvector2 origin, float size, int count, float speed, GLvec
     p.Init (sprite, GLrgba (), origin, true, false, DEBRIS_LIFESPAN + RandomVal () % DEBRIS_LIFESPAN, (RandomFloat ()+0.33f) * size, 0.05f*speed, 3);
     p.VelocitySet (direction+GLvector2 (RandomFloat () - 0.5f, RandomFloat () - 0.5f)*speed);
     p.CollisionSet (true);
-    queue.push_back (p);
+    grQueue.push_back (p);
   }
 }
 
@@ -271,7 +271,7 @@ void ParticleBlood (GLvector2 origin, GLrgba color, float size, int count, float
 		p.Init (sprite, color_blood, origin, true, true, DEBRIS_LIFESPAN + RandomVal () % DEBRIS_LIFESPAN, (RandomFloat () + 0.33f) * size, 0.01f, (RandomFloat () - 0.5f) * 100.0f);
 		p.VelocitySet (direction * speed + (RandomFloat () - 0.5f)*speed);
 		p.CollisionSet (true);
-		queue.push_back (p);
+		grQueue.push_back (p);
 	}
 }
 
@@ -290,7 +290,7 @@ void ParticleRubble(GLvector2 origin, float size, int count)
 		else
 			sprite = SPRITE_RUBBLE2;
 		p.Init(sprite, GLrgba(), origin, true, false, 1000, size, 1.1f*size, 5);
-		queue.push_back(p);
+		grQueue.push_back(p);
 	}
 }
 
@@ -314,10 +314,10 @@ void ParticleUpdate()
 	//Since particles can spawn other particles, we don't want to add them
 	//in the middle of an update. So we stick new particles in a queue.
 	//Here we take the queue from the previous frame and add them.
-	if (!queue.empty() && live_particles < PARTICLE_LIMIT) {
-		particle.insert(particle.end(), queue.begin(), queue.end());
+	if (!grQueue.empty() && live_particles < PARTICLE_LIMIT) {
+		particle.insert(particle.end(), grQueue.begin(), grQueue.end());
 	}
-	queue.clear();
+	grQueue.clear();
 	//Update the particles, and we're done.
 	if (particle.empty ())
 		return;

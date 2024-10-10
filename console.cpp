@@ -36,7 +36,7 @@ static const GLrgba   color_console = GLrgba(0.33f, 0.33f, 1.0f, 0.5f);
 static const GLrgba   color_border = GLrgba(1, 1, 1);
 static const GLrgba   color_input = GLrgba(0, 1, 1);
 static const GLrgba   color_notify = GLrgba(1, 1, 0);
-static vector<string> queue;
+static vector<string> grQueue;
 static vector<string> history;
 static vector<Line>   lines;
 static bool           ready;
@@ -195,8 +195,8 @@ void ConsoleUpdate()
 	int         last_space;
 
 	color = GLrgba(1, 1, 1);
-	for (i = 0; i < queue.size(); i++) {
-		c_str = queue[i].c_str();
+	for (i = 0; i < grQueue.size(); i++) {
+		c_str = grQueue[i].c_str();
 		newline.Clear();
 		last_space = 0;
 		for (unsigned j = 0; j < strlen(c_str); j++) {
@@ -234,7 +234,7 @@ void ConsoleUpdate()
 			lines.push_back(newline);
 		newline.Clear();
 	}
-	queue.clear();
+	grQueue.clear();
 }
 
 void ConsoleLog(const char* message, ...)
@@ -245,5 +245,5 @@ void ConsoleLog(const char* message, ...)
 	va_start(marker, message);
 	vsprintf(msg_text, message, marker);
 	va_end(marker);
-	queue.push_back(msg_text);
+	grQueue.push_back(msg_text);
 }
